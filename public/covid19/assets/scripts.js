@@ -12,7 +12,7 @@ const getTotal = async (jwt) => {
     const { data } = await response.json();
     console.log(data);
     document.getElementById("pre").innerHTML = JSON.stringify(data);
-    /* return data; */
+    // return data;
     let paises = data.filter(pais => {
       return pais.deaths > 10000
     });
@@ -20,8 +20,6 @@ const getTotal = async (jwt) => {
   } catch (err) {
     console.error(`Error: ${err}`);
   }
-  
-
 };
 
 
@@ -33,12 +31,54 @@ $(document).ready(function(){
 
 
 let alumnos = [
-  {nombre: 'Juan', edad: 24},
-  {nombre: 'Pedro', edad: 19},
-  {nombre: 'Maria', edad: 22},
-  {nombre: 'Jose', edad: 28},
-  {nombre: 'Diego', edad: 18},
-  ]
-  let mayorA20 = alumnos.filter(alumno => {
-  return alumno.edad > 20
-  })
+  { nombre: "Juan", edad: 24 },
+  { nombre: "Pedro", edad: 19 },
+  { nombre: "Maria", edad: 22 },
+  { nombre: "Jose", edad: 28 },
+  { nombre: "Diego", edad: 18 },
+];
+let mayorA20 = alumnos.filter((alumno) => {
+  return alumno.edad > 20;
+}); 
+
+
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+            barThickness: "flex"
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+
+
