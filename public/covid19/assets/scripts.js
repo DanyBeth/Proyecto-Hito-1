@@ -1,3 +1,5 @@
+
+
 const getTotal = async (jwt) => {
   try {
     const response = await fetch("http://localhost:3000/api/total", {
@@ -10,23 +12,61 @@ const getTotal = async (jwt) => {
       },
     });
     const { data } = await response.json();
+    
     console.log(data);
-    let cuerpoTabla = document.getElementById("tbody")
     data.forEach(element => {
-      cuerpoTabla.innerHTML += `
-      <tr>
-        <td>${element.location}</td>
-        <td>${element.confirmed}</td>
-        <td>${element.deaths}</td>
-        <td>${Math.floor((element.confirmed - element.deaths) * 0.7)}</td>
-        <td>${Math.floor((element.confirmed - element.deaths) * 0.3)}</td>
-        <td>modal</td>
-      </tr>
-      `
-    });
+      table(element.location, element.confirmed, element.deaths);
+      const ctx = document.querySelector('#chart').getContext('2d')
+      totalCasesChart(ctx, element.location, element.confirmed, element.deaths)
+    })
   } catch (err) {
     console.error(`Error: ${err}`);
   }
 };
 
 getTotal();
+
+
+function totalCasesChart(ctx, paises, confirmados, muertes) {
+  new Chart (ctx, {
+    type: 'bar',
+    data: {
+      labels: paises,
+      datasets: [
+        {
+          label: 'Confirmados',
+          data: confirmados,
+        },
+        {
+          label: 'Muertes',
+          data: muertes,
+        },
+        {
+          label: 'Recuperados',
+          data: Math.floor((confirmados - muertes) * 0.7),
+        },
+        {
+          label: 'Activos',
+          data: Math.floor((confirmados - muertes) * 0.7),
+        }
+      ]
+    }
+  })
+}
+
+
+
+
+function table(paises, confirmados, muertes){
+  let cuerpoTabla = document.getElementById("tbody")
+  cuerpoTabla.innerHTML += `
+      <tr>
+        <td>${paises}</td>
+        <td>${confirmados}</td>
+        <td>${muertes}</td>
+        <td>${Math.floor((confirmados - muertes) * 0.7)}</td>
+        <td>${Math.floor((confirmados - muertes) * 0.3)}</td>
+        <td>modal</td>
+      </tr>
+      `
+}
