@@ -57,9 +57,11 @@ const getCountry = async (paises) => {
     let ubicacion = data.location
     let confirmados = data.confirmed
     let muertes = data.deaths
-    let recuperados = data.recovered
-    let activos = data.active
+    let recuperados = Math.floor((confirmados - muertes) * 0.7)
+    let activos = Math.floor((confirmados - muertes) * 0.3)
     ubicationCasesChart(ctx2, ubicacion, confirmados, muertes, recuperados, activos)
+    let tituloPais = document.getElementById("exampleModalLabel");
+    tituloPais.innerHTML = paises
   } catch (err) {
     console.error(`Error: ${err}`);
   }
@@ -74,18 +76,30 @@ const totalCasesChart = (ctx, ubicacion, confirmados, muertes, recuperados, acti
         {
           label: 'Confirmados',
           data: confirmados,
+          backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+          borderColor: ['rgb(255, 99, 132)'],
+          borderWidth: 1
         },
         {
           label: 'Muertes',
           data: muertes,
+          backgroundColor: ['rgba(255, 159, 64, 0.2)'],
+          borderColor: ['rgb(255, 159, 64)'],
+          borderWidth: 1
         },
         {
           label: 'Recuperados',
-          data: recuperados
+          data: recuperados,
+          backgroundColor: ['rgba(255, 205, 86, 0.2)'],
+          borderColor: ['rgb(255, 205, 86)'],
+          borderWidth: 1
         },
         { 
           label: 'Activos',
           data: activos,
+          backgroundColor: ['rgba(75, 192, 192, 0.2)'],
+          borderColor: ['rgb(75, 192, 192)'],
+          borderWidth: 1
         }
       ]
     }
@@ -113,7 +127,7 @@ function ubicationCasesChart(ctx2, ubicacion, confirmados, muertes, recuperados,
     chart2.destroy();
   }
   chart2 = new Chart (ctx2, {
-    type: 'polarArea',
+    type: 'pie',
     data: {
       labels: [
         'Confirmados',
@@ -130,7 +144,8 @@ function ubicationCasesChart(ctx2, ubicacion, confirmados, muertes, recuperados,
           'rgb(255, 205, 86)',
           'rgb(201, 203, 207)',
           'rgb(54, 162, 235)'
-        ]
+        ],
+        hoverOffset: 4
       }]
     }
   })
