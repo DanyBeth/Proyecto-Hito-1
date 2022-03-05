@@ -50,7 +50,8 @@ const getCountry = async (paises) => {
       }
     })
     const { data } = await response.json();
-    const ctx2 = document.getElementById('Chart2')
+    const ctx2 = document.getElementById('Chart2').getContext("2d");
+    console.log(ctx2);
     let ubicacion = data.location
     let confirmados = data.confirmed
     let muertes = data.deaths
@@ -62,8 +63,8 @@ const getCountry = async (paises) => {
   }
 }
 
-function totalCasesChart(ctx, ubicacion, confirmados, muertes, recuperados, activos) {
-  new Chart (ctx, {
+const totalCasesChart = (ctx, ubicacion, confirmados, muertes, recuperados, activos) => {
+  var chart2 = new Chart (ctx, {
     type: 'bar',
     data: {
       labels: ubicacion,
@@ -89,9 +90,6 @@ function totalCasesChart(ctx, ubicacion, confirmados, muertes, recuperados, acti
   })
 }
 
-
-
-
 function table(paises, confirmados, muertes){
   let cuerpoTabla = document.getElementById("tbody")
   cuerpoTabla.innerHTML += `
@@ -108,11 +106,8 @@ function table(paises, confirmados, muertes){
       `
 }
 
-
-
-
 function ubicationCasesChart(ctx2, ubicacion, confirmados, muertes, recuperados, activos) {
-  new Chart (ctx2, {
+  chart2 = new Chart (ctx2, {
     type: 'polarArea',
     data: {
       labels: [
@@ -135,3 +130,4 @@ function ubicationCasesChart(ctx2, ubicacion, confirmados, muertes, recuperados,
     }
   })
 }
+
