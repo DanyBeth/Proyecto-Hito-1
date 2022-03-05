@@ -50,8 +50,10 @@ const getCountry = async (paises) => {
       }
     })
     const { data } = await response.json();
+    /* let chartModal = document.getElementById("chartModal")
+    chartModal.innerHTML = ""
+    chartModal.innerHTML = '<canvas id="Chart2" width="400" height="400"></canvas>' */
     const ctx2 = document.getElementById('Chart2').getContext("2d");
-    console.log(ctx2);
     let ubicacion = data.location
     let confirmados = data.confirmed
     let muertes = data.deaths
@@ -64,7 +66,7 @@ const getCountry = async (paises) => {
 }
 
 const totalCasesChart = (ctx, ubicacion, confirmados, muertes, recuperados, activos) => {
-  var chart2 = new Chart (ctx, {
+  new Chart (ctx, {
     type: 'bar',
     data: {
       labels: ubicacion,
@@ -107,6 +109,9 @@ function table(paises, confirmados, muertes){
 }
 
 function ubicationCasesChart(ctx2, ubicacion, confirmados, muertes, recuperados, activos) {
+  if (chart2) {
+    chart2.destroy();
+  }
   chart2 = new Chart (ctx2, {
     type: 'polarArea',
     data: {
@@ -130,4 +135,3 @@ function ubicationCasesChart(ctx2, ubicacion, confirmados, muertes, recuperados,
     }
   })
 }
-
