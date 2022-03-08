@@ -19,7 +19,13 @@
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Iniciar sesión</a>
+              <a class="nav-link" id="iniciar-sesion" data-toggle="modal" data-target="#modalLogIn" style="display: block">Iniciar sesión</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="situacion-chile" style="display:none">Situación de Chile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="cerrar-sesion" style="display:none">Cerrar sesión</a>
             </li>
           </ul>
         </div>
@@ -28,9 +34,15 @@
       <h2 class="text-center">Países con Covid19</h2>
 
       <br>
-
+      <!--Chart Casos Totales-->
       <div class="container">
-        <canvas id="Chart" width="400" height="400"></canvas>
+        <canvas id="Chart" width="400" height="400" style="display: block"></canvas>
+      </div>
+
+      <br>
+      <!--Chart de Casos en Chile-->
+      <div class="container">
+        <canvas id="Chart3" width="400" height="400" style="display:none"></canvas>
       </div>
 
       <br>
@@ -55,8 +67,8 @@
 
       <pre id="pre"></pre>
       
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- Modal Más Información-->
+      <div class="modal fade" id="modalMasInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -74,6 +86,40 @@
           </div>
         </div>
       </div>
+
+      <!-- Modal Login In-->
+      <div class="modal fade" id="modalLogIn" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Iniciar Sesión</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="chartModal">
+              <div  id="js-form-wrapper" class="col-md-6" style="display: block;">
+                <form id="js-form">
+                    <div class="form-group">
+                      <label for="js-input-email">Email address</label>
+                      <input type="email" class="form-control" id="js-input-email" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                      <label for="js-input-password">Password</label>
+                      <input type="password" class="form-control" id="js-input-password">
+                    </div>
+                  </form>
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" form="js-form" class="btn btn-primary">Enviar</button> <!--data-dismiss="modal"-->
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
       
     <!--Bootsrap Bundle v.4.6-->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
