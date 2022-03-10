@@ -1,5 +1,4 @@
-
-
+//no logré hacer el loader
 
 var chart2;
 
@@ -199,15 +198,19 @@ init();
 
 $("#js-form").submit(async (event) => {
   event.preventDefault();
+  console.log('Hola');
   const email = document.getElementById("js-input-email").value;
   const password = document.getElementById("js-input-password").value;
   const JWT = await postData(email, password);
-  getData(JWT);
-  //$('#modalLogIn').modal('hide');
-  //modal.style.display = "none";
+  localStorage.setItem("jwt-token", JWT);
+  //esconder todos los botones e interfaz por el loader, cuando aparezca la data esconder el loader
+  $('#modalLogIn').modal('hide');
 });
 
-//data-dismiss="modal"
+$("#situacion-chile").click(async => {
+  const JWT = localStorage.getItem("jwt-token");
+  getData(JWT);
+});
 
 const postData = async (email, password) => {
   try {
@@ -219,7 +222,6 @@ const postData = async (email, password) => {
     if(token) {
       toggleLogInLogOut('iniciar-sesion', 'situacion-chile', 'cerrar-sesion');
     }
-    localStorage.setItem("jwt-token", token);
     return token;
   } catch (err) {
     console.error(`Error: ${err}`);
