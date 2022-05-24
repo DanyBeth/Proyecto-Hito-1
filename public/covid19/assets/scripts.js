@@ -1,5 +1,3 @@
-//no logré hacer el loader
-
 var chart2;
 
 const getTotal = async (jwt) => {
