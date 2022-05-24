@@ -76,3 +76,4 @@ document.getElementById("cerrar-sesion").addEventListener("click", function() {
     localStorage.clear();
     window.location.reload();
 });
+//
